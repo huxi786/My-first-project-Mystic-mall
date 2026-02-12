@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Store - Add User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- bootstrap links -->
+     
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5f27cd;
+            --secondary-color: #341f97;
+            --accent-color: #1dd1a1;
+            --light-color: #f5f6fa;
+            --dark-color: #2f3640;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+        }
+        
+        #navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        #logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        #logo span {
+            color: var(--accent-color);
+        }
+        
+        #login {
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        #side1 {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        #side1 h3 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        #side1 p {
+            margin-top: auto;
+            margin-bottom: 0;
+        }
+        
+        #side1 a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        #side1 a:hover {
+            color: var(--accent-color);
+        }
+        
+        #side2 {
+            background-color: white;
+            padding: 40px;
+        }
+        
+        #side2 h3 {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .input2 input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .input2 input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(95, 39, 205, 0.2);
+            outline: none;
+        }
+        
+        #submit {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 12px 40px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        #submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(95, 39, 205, 0.3);
+        }
+        
+     
+        
+        @media (max-width: 768px) {
+            #login {
+                margin: 20px;
+            }
+            
+            #side1 {
+                padding: 30px 20px;
+            }
+            
+            #side2 {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg" id="navbar">
+    <div class="container">
+      <div class="top-nav-left">
+          <a class="navbar-brand" href="index.html" id="logo"><span>M</span>ystic <span>Mall</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><img src="./images/menu.png" alt="" width="30px"></span>
+          </button>
+       </div>
+    </div>
+  </nav>
+  <!-- navbar -->
+
+  <form action="add_user.php" method="post">
+   <div class="container p-5 " id="login">
+    <div class="row g-0">
+        <div class="col-md-5 p-3 py-md-0" id="side1">
+             <button class="btn btn-dark" onclick="window.location.href='index.php';">Dashboard</button>
+            
+        </div>
+        <div class="col-md-7 py-3 py-md-0" id="side2">
+            <h3 class="text-center">Add User</h3>
+            <div class="input2 text-center">
+                <input type="text" placeholder="Full Name" name="name" required>
+                <input type="email" placeholder="Email Address" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="text" placeholder="Address" name="address" required>
+            </div>
+            
+           
+            
+            <div class="text-center">
+                <button type="submit" name="submit" id="submit" class="btn btn-primary mt-2">
+                    Add User <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+            
+          
+        </div>
+    </div>
+   </div>
+  </form>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
