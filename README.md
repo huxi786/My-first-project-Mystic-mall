@@ -1,4 +1,4 @@
-# Mystic Mall v2 🛍️
+# Mystic Mall 🛍️
 
 A premium, full-featured E-Commerce application built with **Laravel**. Mystic Mall offers a modern, high-end shopping experience with a robust admin dashboard for managing products, orders, and users.
 
