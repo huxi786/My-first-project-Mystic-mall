@@ -128,3 +128,5 @@ Contributions are what make the open-source community such an amazing place to l
 
 Distributed under the MIT License. See `LICENSE` for more information.
 <p><b>Mystic Mall</b></p>
+<p>Developed by <strong>Huzaifa Ajmal</strong></p>
+                                                                             <p>Copyright © 2025 Mystic Mall. All rights reserved.</p>
