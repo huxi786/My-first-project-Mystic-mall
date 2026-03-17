@@ -1,0 +1,26 @@
+
+/* --- Carousel --- */
+.hero-img {
+    height: 85vh;
+    object-fit: cover;
+    filter: brightness(0.6); /* Darken image slightly for text readability */
+}
+
+/* Mobile specific height adjustment */
+@media (max-width: 768px) {
+    .hero-img {
+        height: 70vh; /* Taller on mobile to show more vertical image */
+    }
+}
+
+.carousel-caption {
+    z-index: 2;
+    bottom: 0;
+    top: 0;
+    padding-bottom: 3rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: var(--accent-color);
+}
