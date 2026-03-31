@@ -77,7 +77,10 @@
                             <option value="Cancelled" {{ $order->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary-mystic w-100">Update Status</button>
+                    <button type="submit" class="btn btn-primary-mystic w-100 mb-2">Update Status</button>
+                    <a href="{{ route('admin.orders.invoice.preview', $order->id) }}" class="btn btn-success w-100">
+                        <i class="fas fa-eye me-2"></i> Preview & Download Invoice
+                    </a>
                 </form>
             </div>
         </div>

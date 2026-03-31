@@ -2,19 +2,34 @@
     <div class="container py-5 mt-5">
         <div class="row">
             <!-- Product Image -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-4" data-aos="fade-right">
                 <div class="image-zoom-container" style="position: sticky; top: 100px; background-color: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 8px;">
                     <div class="img-zoom-lens"></div>
                     <img id="myimage" src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('uploads/' . $product->image) }}" alt="{{ $product->name }}" 
                          class="img-fluid w-100 h-100" style="object-fit: cover; border-radius: 12px; width: 100%; height: 100%;"
                          onerror="this.src='{{ asset('images/hero (2).jpg') }}'">
                 </div>
+                
+                <!-- Product Gallery Thumbnails -->
+                @if($product->productImages && $product->productImages->count() > 0)
+                    <div class="d-flex gap-2 mt-3 overflow-auto pb-2 custom-scrollbar" style="white-space: nowrap;">
+                        <div class="thumbnail-wrapper" style="width: 80px; height: 80px; flex-shrink: 0; cursor: pointer; border: 2px solid var(--accent-color); border-radius: 8px; overflow: hidden; background: #fff;" onclick="changeMainImage('{{ Str::startsWith($product->image, 'http') ? $product->image : asset('uploads/' . $product->image) }}', this)">
+                             <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('uploads/' . $product->image) }}" class="w-100 h-100" style="object-fit: contain;">
+                        </div>
+                        @foreach($product->productImages as $galleryImg)
+                            <div class="thumbnail-wrapper" style="width: 80px; height: 80px; flex-shrink: 0; cursor: pointer; border: 2px solid transparent; border-radius: 8px; overflow: hidden; background: #fff;" onclick="changeMainImage('{{ asset('uploads/' . $galleryImg->image_path) }}', this)">
+                                 <img src="{{ asset('uploads/' . $galleryImg->image_path) }}" class="w-100 h-100" style="object-fit: contain;">
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                
                 <!-- Zoom Result Container (Hidden by default, shown on hover) -->
                 <div id="myresult" class="img-zoom-result shadow-lg rounded"></div>
             </div>
 
             <!-- Product Details -->
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="fade-left">
                 <!-- Badge & Stock -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="badge badge-mystic px-3 py-2" style="font-size: 0.9rem;">{{ $product->category }}</span>
@@ -265,5 +280,26 @@
         document.addEventListener("DOMContentLoaded", function() {
             imageZoom("myimage", "myresult");
         });
+
+        // Gallery Main Image Switcher
+        function changeMainImage(src, element) {
+            const mainImg = document.getElementById('myimage');
+            mainImg.src = src;
+
+            // Reset zoom lens and result background to prevent artifacting from old image
+            document.querySelector(".img-zoom-lens").style.visibility = "hidden";
+            document.getElementById("myresult").style.visibility = "hidden";
+            
+            // Re-setup zoom for the new image once loaded
+            mainImg.onload = function() {
+                imageZoom("myimage", "myresult");
+            };
+
+            // Update active state borders
+            document.querySelectorAll('.thumbnail-wrapper').forEach(el => {
+                el.style.borderColor = 'transparent';
+            });
+            element.style.borderColor = 'var(--accent-color)';
+        }
     </script>
 </x-app-layout>

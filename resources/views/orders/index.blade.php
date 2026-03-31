@@ -38,9 +38,14 @@
                                                     <span class="badge bg-{{ $color }}">{{ $order->status }}</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-outline-mystic">
-                                                        Track Order
-                                                    </a>
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-outline-mystic">
+                                                            Track Order
+                                                        </a>
+                                                        <a href="{{ route('orders.invoice.preview', $order->id) }}" class="btn btn-sm btn-outline-success" title="Preview & Download Invoice">
+                                                            <i class="fas fa-file-invoice"></i>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

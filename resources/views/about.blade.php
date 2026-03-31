@@ -29,7 +29,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
+            background: url('{{ asset('images/local/hero_about.png') }}') center center / cover no-repeat;
         }
 
         .hero-video-wrapper::before {
@@ -151,7 +151,7 @@
         /* Stats Section with Parallax */
         .stats-parallax {
             position: relative;
-            background: url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&q=80&w=1920') center center/cover fixed;
+            background: url('/images/local/photo-1542204165-65bf26472b9b.jpg') center center/cover fixed;
             padding: 100px 0;
         }
 
@@ -386,8 +386,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0 reveal-up">
                     <div class="image-composition">
-                        <img src="https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&q=80&w=800" alt="Mystic Mall Quality" class="img-main">
-                        <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=800" alt="Premium Accessories" class="img-overlay">
+                        <img src="/images/local/photo-1555529771-835f59fc5efe.jpg" alt="Mystic Mall Quality" class="img-main">
+                        <img src="/images/local/photo-1584916201218-f4242ceb4809.jpg" alt="Premium Accessories" class="img-overlay">
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1 reveal-up delay-200">
@@ -494,7 +494,7 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-md-5 reveal-up delay-100">
                     <div class="leadership-card">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Alex Mystic" class="leadership-img">
+                        <img src="/images/local/photo-1507003211169-0a1dd7228f2d.jpg" alt="Alex Mystic" class="leadership-img">
                         <div class="leadership-info">
                             <span class="leader-role">Founder & Chief Executive</span>
                             <h3 class="leader-name">Alexander Mystic</h3>
@@ -508,7 +508,7 @@
                 </div>
                 <div class="col-md-5 reveal-up delay-200">
                     <div class="leadership-card">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Eleanor Vance" class="leadership-img">
+                        <img src="/images/local/photo-1573496359142-b8d87734a5a2.jpg" alt="Eleanor Vance" class="leadership-img">
                         <div class="leadership-info">
                             <span class="leader-role">Global Creative Director</span>
                             <h3 class="leader-name">Eleanor Vance</h3>

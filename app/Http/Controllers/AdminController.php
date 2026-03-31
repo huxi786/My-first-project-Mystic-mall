@@ -110,13 +110,25 @@ class AdminController extends Controller
         $input = $request->all();
 
         if ($image = $request->file('image')) {
-            $destinationPath = 'uploads/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
             $image->move(public_path('uploads'), $profileImage);
             $input['image'] = $profileImage;
         }
 
-        \App\Models\Product::create($input);
+        $product = \App\Models\Product::create($input);
+
+        // Handle Gallery Images
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $galleryImage) {
+                $galleryImageName = date('YmdHis') . "_" . uniqid() . "." . $galleryImage->getClientOriginalExtension();
+                $galleryImage->move(public_path('uploads'), $galleryImageName);
+                
+                \App\Models\ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $galleryImageName
+                ]);
+            }
+        }
     
         return redirect()->route('admin.products')->with('success','Product created successfully.');
     }
@@ -139,8 +151,7 @@ class AdminController extends Controller
         $input = $request->all();
 
         if ($image = $request->file('image')) {
-            $destinationPath = 'uploads/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
             $image->move(public_path('uploads'), $profileImage);
             $input['image'] = $profileImage;
         } else {
@@ -148,6 +159,19 @@ class AdminController extends Controller
         }
 
         $product->update($input);
+
+        // Handle Gallery Images
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $galleryImage) {
+                $galleryImageName = date('YmdHis') . "_" . uniqid() . "." . $galleryImage->getClientOriginalExtension();
+                $galleryImage->move(public_path('uploads'), $galleryImageName);
+                
+                \App\Models\ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $galleryImageName
+                ]);
+            }
+        }
     
         return redirect()->route('admin.products')->with('success','Product updated successfully');
     }

@@ -52,6 +52,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/{id}', 'show')->name('show');
         Route::post('/{id}/status', 'updateStatus')->name('updateStatus');
+        Route::get('/{id}/invoice', 'downloadInvoice')->name('invoice');
+        Route::get('/{id}/invoice/preview', 'previewInvoice')->name('invoice.preview');
     });
 
     // Review Management
@@ -65,6 +67,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{id}/invoice', [App\Http\Controllers\OrderController::class, 'downloadInvoice'])->name('orders.invoice');
+    Route::get('/orders/{id}/invoice/preview', [App\Http\Controllers\OrderController::class, 'previewInvoice'])->name('orders.invoice.preview');
     
     // Limit access to admin for now or general user profile? 
     // The previous implementation plan said "User Profile Settings".

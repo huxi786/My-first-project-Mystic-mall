@@ -11,7 +11,12 @@
                 <div class="card card-custom shadow-sm border-0 mb-4 overflow-hidden">
                     <div class="card-header bg-mystic text-white py-3 d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 fw-bold">Order #{{ $order->id }}</h5>
-                        <span class="badge bg-white text-dark">{{ $order->status }}</span>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('orders.invoice.preview', $order->id) }}" class="btn btn-sm btn-light me-3">
+                                <i class="fas fa-eye me-2"></i> Preview Invoice
+                            </a>
+                            <span class="badge bg-white text-dark">{{ $order->status }}</span>
+                        </div>
                     </div>
                     <div class="card-body p-4">
                         <!-- Progress Tracker -->

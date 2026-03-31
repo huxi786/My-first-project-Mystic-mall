@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --admin-sidebar-bg: linear-gradient(180deg, #1a0033 0%, #0d001a 100%);
@@ -198,9 +199,10 @@
         <div class="header">
             <h4>@yield('title', 'Dashboard')</h4>
             
-            <div class="dropdown">
-                <div class="user-profile d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="bg-dark rounded-circle d-flex align-items-center justify-content-center text-warning me-2" style="width: 35px; height: 35px;">
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <div class="user-profile d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="bg-dark rounded-circle d-flex align-items-center justify-content-center text-warning me-2" style="width: 35px; height: 35px;">
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <div>
@@ -219,6 +221,7 @@
                         </form>
                     </li>
                 </ul>
+                </div>
             </div>
         </div>
 

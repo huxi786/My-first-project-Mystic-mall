@@ -22,7 +22,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 299.00,
                 'stock' => 15,
                 'category' => 'Formal Wears',
-                'image' => 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1594938298603-c8148c4dae35.jpg'
             ],
             [
                 'name' => 'Elegant Evening Gown',
@@ -30,7 +30,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 350.00,
                 'stock' => 10,
                 'category' => 'Formal Wears',
-                'image' => 'https://images.unsplash.com/photo-1566160980486-4ce57a41ea42?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1566160980486-4ce57a41ea42.jpg'
             ],
             [
                 'name' => 'Premium Leather Oxfords',
@@ -38,7 +38,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 140.00,
                 'stock' => 25,
                 'category' => 'Formal Wears',
-                'image' => 'https://images.unsplash.com/photo-1614252627993-9c59500c0f65?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1614252627993-9c59500c0f65.jpg'
             ],
             [
                 'name' => 'Silk Tie & Cufflinks Set',
@@ -46,7 +46,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 55.00,
                 'stock' => 45,
                 'category' => 'Formal Wears',
-                'image' => 'https://images.unsplash.com/photo-1589756823695-278bc923f962?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1589756823695-278bc923f962.jpg'
             ],
 
             // Casual Wears
@@ -56,7 +56,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 35.00,
                 'stock' => 100,
                 'category' => 'Casual Wears',
-                'image' => 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1521572163474-6864f9cf17ab.jpg'
             ],
             [
                 'name' => 'Vintage Denim Jacket',
@@ -64,7 +64,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 85.00,
                 'stock' => 40,
                 'category' => 'Casual Wears',
-                'image' => 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1576995853123-5a10305d93c0.jpg'
             ],
             [
                 'name' => 'Comfortable Urban Joggers',
@@ -72,7 +72,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 50.00,
                 'stock' => 60,
                 'category' => 'Casual Wears',
-                'image' => 'https://images.unsplash.com/photo-1584865288642-42078afe6942?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1584865288642-42078afe6942.jpg'
             ],
             [
                 'name' => 'Breathable Cotton Hoodie',
@@ -80,7 +80,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 65.00,
                 'stock' => 75,
                 'category' => 'Casual Wears',
-                'image' => 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1556821840-3a63f95609a7.jpg'
             ],
 
             // Men's Collection
@@ -90,7 +90,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 245.00,
                 'stock' => 20,
                 'category' => "Men's Collection",
-                'image' => 'https://images.unsplash.com/photo-1520975954732-57dd22299614?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1520975954732-57dd22299614.jpg'
             ],
             [
                 'name' => 'Chronograph Field Watch',
@@ -98,7 +98,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 180.00,
                 'stock' => 30,
                 'category' => "Men's Collection",
-                'image' => 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1524805444758-089113d48a6d.jpg'
             ],
             [
                 'name' => 'Classic Chelsea Boots',
@@ -106,7 +106,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 135.00,
                 'stock' => 40,
                 'category' => "Men's Collection",
-                'image' => 'https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1638247025967-b4e38f787b76.jpg'
             ],
             [
                 'name' => 'Minimalist Cardholder',
@@ -114,7 +114,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 45.00,
                 'stock' => 85,
                 'category' => "Men's Collection",
-                'image' => 'https://images.unsplash.com/photo-1627063467664-5e1a3bc7155d?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1627063467664-5e1a3bc7155d.jpg'
             ],
 
             // Women's Collection
@@ -124,7 +124,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 210.00,
                 'stock' => 25,
                 'category' => "Women's Collection",
-                'image' => 'https://images.unsplash.com/photo-1548036328-c928907dcca7?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1548036328-c928907dcca7.jpg'
             ],
             [
                 'name' => 'Stiletto Heel Pumps',
@@ -132,7 +132,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 125.00,
                 'stock' => 30,
                 'category' => "Women's Collection",
-                'image' => 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1543163521-1bf539c55dd2.jpg'
             ],
             [
                 'name' => 'Silk Floral Blouse',
@@ -140,7 +140,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 85.00,
                 'stock' => 50,
                 'category' => "Women's Collection",
-                'image' => 'https://images.unsplash.com/photo-1580911394025-a7bdfd92d427?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1580911394025-a7bdfd92d427.jpg'
             ],
             [
                 'name' => 'Rose Gold Plated Necklace',
@@ -148,7 +148,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 95.00,
                 'stock' => 45,
                 'category' => "Women's Collection",
-                'image' => 'https://images.unsplash.com/photo-1599643477877-3e117838d728?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1599643477877-3e117838d728.jpg'
             ],
 
             // Kid's Collection
@@ -158,7 +158,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 20.00,
                 'stock' => 120,
                 'category' => "Kid's Collection",
-                'image' => 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1519689680058-324335c77eba.jpg'
             ],
             [
                 'name' => 'Kids Denim Overalls',
@@ -166,7 +166,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 45.00,
                 'stock' => 60,
                 'category' => "Kid's Collection",
-                'image' => 'https://images.unsplash.com/photo-1519241047957-be31d7379a5d?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1519241047957-be31d7379a5d.jpg'
             ],
             [
                 'name' => 'Light Up Sneakers',
@@ -174,7 +174,7 @@ class CategoryProductSeeder extends Seeder
                 'price' => 55.00,
                 'stock' => 75,
                 'category' => "Kid's Collection",
-                'image' => 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1514989940723-e8e51635b782.jpg'
             ],
             [
                 'name' => 'Cozy Bear Winter Coat',
@@ -182,7 +182,33 @@ class CategoryProductSeeder extends Seeder
                 'price' => 75.00,
                 'stock' => 35,
                 'category' => "Kid's Collection",
-                'image' => 'https://images.unsplash.com/photo-1503919005314-30d9ec8ce7ba?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1503919005314-30d9ec8ce7ba.jpg'
+            ],
+
+            // Accessories
+            [
+                'name' => 'Obsidian Smart Watch',
+                'description' => 'A premium smart watch featuring a sleek black finish, heart monitor, and a sapphire crystal display.',
+                'price' => 299.99,
+                'stock' => 30,
+                'category' => 'Accessories',
+                'image' => 'photo-1523275335684-37898b6baf30.jpg'
+            ],
+            [
+                'name' => 'Golden Hour Aviators',
+                'description' => 'Classic aviator sunglasses featuring 18k gold-plated frames and polarized lenses for maximum UV protection.',
+                'price' => 145.00,
+                'stock' => 60,
+                'category' => 'Accessories',
+                'image' => 'photo-1511499767150-a48a237f0083.jpg'
+            ],
+            [
+                'name' => 'Sapphire Statement Ring',
+                'description' => 'A dazzling 2-carat lab-grown sapphire set in an intricate sterling silver band. Pure luxury.',
+                'price' => 599.00,
+                'stock' => 8,
+                'category' => 'Accessories',
+                'image' => 'photo-1605100804763-247f66122e28.jpg'
             ]
         ];
 

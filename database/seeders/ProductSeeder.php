@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'price' => 120.00,
                 'stock' => 50,
                 'category' => 'Beauty & Fragrance',
-                'image' => 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1594035910387-fea47794261f.jpg'
             ],
             [
                 'name' => 'Obsidian Smart Watch',
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
                 'price' => 299.99,
                 'stock' => 30,
                 'category' => 'Electronics',
-                'image' => 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1523275335684-37898b6baf30.jpg'
             ],
             [
                 'name' => 'Midnight Leather Tote',
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
                 'price' => 185.00,
                 'stock' => 25,
                 'category' => 'Fashion & Accessories',
-                'image' => 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1584916201218-f4242ceb4809.jpg'
             ],
             [
                 'name' => 'Stellar Noise-Cancelling Headphones',
@@ -45,7 +45,7 @@ class ProductSeeder extends Seeder
                 'price' => 349.50,
                 'stock' => 40,
                 'category' => 'Electronics',
-                'image' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1505740420928-5e560c06d30e.jpg'
             ],
             [
                 'name' => 'Golden Hour Aviators',
@@ -53,7 +53,7 @@ class ProductSeeder extends Seeder
                 'price' => 145.00,
                 'stock' => 60,
                 'category' => 'Fashion & Accessories',
-                'image' => 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1511499767150-a48a237f0083.jpg'
             ],
             [
                 'name' => 'ProVision 4K Camera',
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
                 'price' => 1299.00,
                 'stock' => 15,
                 'category' => 'Electronics',
-                'image' => 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1516035069371-29a1b244cc32.jpg'
             ],
             [
                 'name' => 'Crimson High-Top Sneakers',
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
                 'price' => 220.00,
                 'stock' => 50,
                 'category' => 'Footwear',
-                'image' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1542291026-7eec264c27ff.jpg'
             ],
             [
                 'name' => 'Zenith Mechanical Keyboard',
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
                 'price' => 160.00,
                 'stock' => 35,
                 'category' => 'Electronics',
-                'image' => 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1595225476474-87563907a212.jpg'
             ],
             [
                 'name' => 'Lumina Desk Lamp',
@@ -85,7 +85,7 @@ class ProductSeeder extends Seeder
                 'price' => 85.00,
                 'stock' => 100,
                 'category' => 'Home & Living',
-                'image' => 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1513506003901-1e6a229e2d15.jpg'
             ],
             [
                 'name' => 'Velvet Lounge Chair',
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
                 'price' => 450.00,
                 'stock' => 10,
                 'category' => 'Home & Living',
-                'image' => 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1592078615290-033ee584e267.jpg'
             ],
             [
                 'name' => 'Botanica Face Serum',
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
                 'price' => 65.00,
                 'stock' => 80,
                 'category' => 'Beauty & Fragrance',
-                'image' => 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1620916566398-39f1143ab7be.jpg'
             ],
             [
                 'name' => 'Monstera Deliciosa Plant',
@@ -109,7 +109,7 @@ class ProductSeeder extends Seeder
                 'price' => 45.00,
                 'stock' => 40,
                 'category' => 'Home & Living',
-                'image' => 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1485955900006-10f4d324d411.jpg'
             ],
             [
                 'name' => 'Aero Drone 360',
@@ -117,7 +117,7 @@ class ProductSeeder extends Seeder
                 'price' => 799.00,
                 'stock' => 20,
                 'category' => 'Electronics',
-                'image' => 'https://images.unsplash.com/photo-1507582020474-9a35b7d315c9?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1507582020474-9a35b7d315c9.jpg'
             ],
             [
                 'name' => 'Titanium Coffee Maker',
@@ -125,7 +125,7 @@ class ProductSeeder extends Seeder
                 'price' => 249.99,
                 'stock' => 25,
                 'category' => 'Home Appliances',
-                'image' => 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1517686469429-8bdb88b9f907.jpg'
             ],
             [
                 'name' => 'Sapphire Statement Ring',
@@ -133,7 +133,7 @@ class ProductSeeder extends Seeder
                 'price' => 599.00,
                 'stock' => 8,
                 'category' => 'Jewelry',
-                'image' => 'https://images.unsplash.com/photo-1605100804763-247f66122e28?auto=format&fit=crop&q=80&w=800'
+                'image' => 'photo-1605100804763-247f66122e28.jpg'
             ]
         ];
 

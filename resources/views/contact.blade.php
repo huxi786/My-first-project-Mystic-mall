@@ -23,7 +23,7 @@
         /* Hero Section */
         .contact-hero {
             position: relative;
-            background: linear-gradient(rgba(26, 11, 46, 0.85), rgba(45, 20, 87, 0.75)), url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&q=80&w=1920');
+            background: linear-gradient(rgba(26, 11, 46, 0.85), rgba(45, 20, 87, 0.75)), url('{{ asset('images/local/hero_contact.png') }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -291,7 +291,7 @@
             <div class="row align-items-center g-0">
                 <div class="col-lg-5 d-none d-lg-block reveal-up">
                     <div style="height: 600px; overflow: hidden; border-top-left-radius: 4px; border-bottom-left-radius: 4px; box-shadow: -20px 20px 50px rgba(0,0,0,0.1);">
-                        <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&q=80&w=800" alt="Customer Service" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="/images/local/photo-1556740758-90de374c12ad.jpg" alt="Customer Service" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-7 reveal-up delay-100">

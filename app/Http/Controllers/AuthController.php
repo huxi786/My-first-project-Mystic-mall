@@ -57,6 +57,15 @@ class AuthController extends Controller
                 'user_agent' => $request->userAgent(),
             ]);
 
+            $loginCount = \App\Models\LoginActivity::where('user_id', Auth::id())->count();
+            
+            if ($loginCount == 1) {
+                $request->session()->flash('welcome_type', 'first');
+            } else {
+                $request->session()->flash('welcome_type', 'returning');
+            }
+            $request->session()->flash('welcome_name', Auth::user()->name);
+
             if (Auth::user()->is_admin) {
                 return redirect()->route('admin.dashboard');
             }

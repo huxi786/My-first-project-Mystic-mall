@@ -13,12 +13,51 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body.lang-ur, .lang-ur * {
+            font-family: 'Noto Nastaliq Urdu', serif !important;
+        }
+        /* Hide google translate top bar and original text tooltips */
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important; 
+        }
+        .goog-tooltip {
+            display: none !important;
+        }
+        .goog-tooltip:hover {
+            display: none !important;
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            border: none !important; 
+            box-shadow: none !important;
+        }
+        /* Hide the google translate widget entirely since we control it via our own dropdown */
+        #google_translate_element {
+            display: none;
+        }
+    </style>
     
+    <!-- User Dark Mode Init -->
+    <script>
+        if (localStorage.getItem('user_theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/hero.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/categories.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom_carousel.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -61,9 +100,9 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item {{ request()->query('category') == 'Formal Wears' ? 'text-warning' : '' }}" href="{{ url('/products?category=Formal Wears') }}"><i class="fas fa-user-tie me-2"></i> Formal Wears</a></li>
                             <li><a class="dropdown-item {{ request()->query('category') == 'Casual Wears' ? 'text-warning' : '' }}" href="{{ url('/products?category=Casual Wears') }}"><i class="fas fa-tshirt me-2"></i> Casual Wears</a></li>
-                            <li><a class="dropdown-item {{ request()->query('category') == 'Mens Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Mens Collection') }}"><i class="fas fa-male me-2"></i> Men's Collection</a></li>
-                            <li><a class="dropdown-item {{ request()->query('category') == 'Womens Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Womens Collection') }}"><i class="fas fa-female me-2"></i> Women's Collection</a></li>
-                            <li><a class="dropdown-item {{ request()->query('category') == 'Kids Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Kids Collection') }}"><i class="fas fa-child me-2"></i> Kid's Collection</a></li>
+                            <li><a class="dropdown-item {{ request()->query('category') == 'Men\'s Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Men\'s Collection') }}"><i class="fas fa-male me-2"></i> Men's Collection</a></li>
+                            <li><a class="dropdown-item {{ request()->query('category') == 'Women\'s Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Women\'s Collection') }}"><i class="fas fa-female me-2"></i> Women's Collection</a></li>
+                            <li><a class="dropdown-item {{ request()->query('category') == 'Kid\'s Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Kid\'s Collection') }}"><i class="fas fa-child me-2"></i> Kid's Collection</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link {{ request()->query('new_arrival') ? 'active' : '' }}" href="{{ url('/products?new_arrival=true') }}">New Arrivals</a></li>
@@ -84,6 +123,7 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </li>
+
 
                     @auth
                         <li class="nav-item ms-2">
@@ -109,9 +149,11 @@
                                 @if(Auth::user()->is_admin)
                                     <li><a class="dropdown-item text-white" href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
                                 @endif
-                                <li><a class="dropdown-item text-white" href="{{ route('profile.edit') }}">My Profile</a></li>
-                                <li><a class="dropdown-item text-white" href="{{ route('orders.index') }}">My Orders</a></li>
-                                <li><a class="dropdown-item text-white" href="{{ route('wishlist.index') }}">My Wishlist</a></li>
+                                <li><a class="dropdown-item text-white" href="{{ route('profile.edit') }}"><i class="fas fa-user-edit me-2"></i> My Profile</a></li>
+                                <li><a class="dropdown-item text-white" href="{{ route('orders.index') }}"><i class="fas fa-box me-2"></i> My Orders</a></li>
+                                <li><a class="dropdown-item text-white" href="{{ route('wishlist.index') }}"><i class="fas fa-heart me-2"></i> My Wishlist</a></li>
+                                <li><hr class="dropdown-divider bg-white"></li>
+                                <li><a class="dropdown-item text-white" href="#" data-bs-toggle="modal" data-bs-target="#preferencesModal"><i class="fas fa-cog me-2"></i> Preferences</a></li>
                                 <li><hr class="dropdown-divider bg-white"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" id="logout-form">
@@ -135,6 +177,158 @@
     <main style="{{ (!request()->routeIs('home') && !request()->routeIs('products.index') && !request()->routeIs('contact') && !request()->routeIs('about')) ? 'margin-top: 100px;' : '' }}">
         {{ $slot }}
     </main>
+
+    <!-- User Preferences Modal -->
+    <div class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header" style="background: var(--primary-color); border-bottom: none;">
+                    <h5 class="modal-title font-cinzel text-white fw-bold" id="preferencesModalLabel"><i class="fas fa-cog me-2 text-warning"></i> User Preferences</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <!-- Theme Toggle -->
+                    <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded shadow-sm border">
+                        <div>
+                            <h6 class="mb-1 fw-bold text-dark"><i class="fas fa-adjust text-accent me-2"></i> Appearance</h6>
+                            <small class="text-muted">Choose between light and dark mode</small>
+                        </div>
+                        <div class="form-check form-switch ms-3">
+                            <input class="form-check-input" type="checkbox" id="user-theme-toggle-modal" style="width: 2.5em; height: 1.25em; cursor: pointer;">
+                        </div>
+                    </div>
+                    
+                    <!-- Currency Preferences -->
+                    <div class="mb-4 p-3 bg-white rounded shadow-sm border">
+                        <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-money-bill-wave text-success me-2"></i> Currency Options</h6>
+                        <select class="form-select form-select-sm" aria-label="Currency select">
+                            <option selected value="PKR">Pakistani Rupee (Rs)</option>
+                            <option value="USD">US Dollar ($)</option>
+                            <option value="EUR">Euro (€)</option>
+                            <option value="GBP">British Pound (£)</option>
+                        </select>
+                    </div>
+
+                    <!-- Language Preferences -->
+                    <div class="mb-4 p-3 bg-white rounded shadow-sm border">
+                        <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-globe text-info me-2"></i> Language</h6>
+                        <select id="langSelect" class="form-select form-select-sm" aria-label="Language select">
+                            <option selected value="en">English</option>
+                            <option value="ur">Urdu (اردو)</option>
+                        </select>
+                    </div>
+
+                    <!-- Notification Preferences -->
+                    <div class="p-3 bg-white rounded shadow-sm border">
+                        <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-bell text-danger me-2"></i> Notifications</h6>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="emailNotif" checked>
+                            <label class="form-check-label text-dark" for="emailNotif">Email Updates</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="smsNotif">
+                            <label class="form-check-label text-dark" for="smsNotif">SMS Alerts</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light border-top-0 pt-0">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-mystic rounded-pill px-4" data-bs-dismiss="modal" onclick="Swal.fire({icon: 'success', title: 'Preferences Saved', showConfirmButton: false, timer: 1500})">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Showcase Section -->
+    <section class="category-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-accent text-uppercase letter-spacing-2 fw-bold mb-2" style="font-family: 'Outfit', sans-serif;">Curated Collections</h6>
+                <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif; color: var(--primary-color);">Browse by Category</h2>
+                <div style="width: 60px; height: 3px; background-color: var(--accent-color); margin: 20px auto;"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Formal Wears -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <a href="{{ url('/products?category=Formal Wears') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/cat_formal.png') }}" class="category-img" alt="Formal Wears">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Formal Wears</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Casual Wears -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <a href="{{ url('/products?category=Casual Wears') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/cat_casual.png') }}" class="category-img" alt="Casual Wears">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Casual Wears</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Mens Collection -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <a href="{{ url('/products?category=Men\'s Collection') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/hero_men.png') }}" class="category-img" alt="Mens Collection">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Men's Collection</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Womens Collection -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <a href="{{ url('/products?category=Women\'s Collection') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/hero_women.png') }}" class="category-img" alt="Womens Collection">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Women's Collection</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Kids Collection -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <a href="{{ url('/products?category=Kid\'s Collection') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/cat_kids.png') }}" class="category-img" alt="Kids Collection">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Kid's Collection</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Accessories -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <a href="{{ url('/products?category=Accessories') }}" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="{{ asset('images/local/hero_accessories.png') }}" class="category-img" alt="Accessories">
+                            <div class="category-overlay">
+                                <div class="glass-title-box">Accessories</div>
+                                <span class="category-count">View Collection</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <div id="footer">   
@@ -621,7 +815,118 @@
                 }
             })
         }
+
+        // Dark Mode Logic (User Side - Modal Switch)
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSwitch = document.getElementById('user-theme-toggle-modal');
+            if (themeSwitch) {
+                // Set initial state based on class applied early on
+                if (document.documentElement.classList.contains('dark-mode')) {
+                    themeSwitch.checked = true;
+                }
+                
+                themeSwitch.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        document.documentElement.classList.add('dark-mode');
+                        localStorage.setItem('user_theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark-mode');
+                        localStorage.setItem('user_theme', 'light');
+                    }
+                });
+            }
+        });
     </script>
+    
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 50
+            });
+        });
+    </script>
+    <!-- Welcome Message Toast -->
+    @if(session('welcome_type'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeType = '{{ session('welcome_type') }}';
+            const welcomeName = '{{ session('welcome_name') }}';
+            
+            let titleText = welcomeType === 'first' ? `Welcome, ${welcomeName}! 🎉` : `Welcome back, ${welcomeName}! 👋`;
+            
+            Swal.fire({
+                title: titleText,
+                icon: 'success',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                background: document.documentElement.classList.contains('dark-mode') ? '#1e1e1e' : '#fff',
+                color: document.documentElement.classList.contains('dark-mode') ? '#fff' : '#000',
+                showClass: {
+                    popup: 'animate__animated animate__bounceInRight'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutRight'
+                }
+            });
+        });
+    </script>
+    @endif
+    
+    <!-- Google Translate Engine -->
+    <div id="google_translate_element"></div>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', 
+                includedLanguages: 'ur,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Logic to hook our custom dropdown to the Google Translate Engine
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a moment for google translate iframe to build
+            setTimeout(() => {
+                const customLangSelect = document.getElementById('langSelect');
+                if(!customLangSelect) return;
+                
+                // Read from memory/cookie if existing
+                let isUrdu = document.cookie.includes('googtrans=/en/ur');
+                if (isUrdu) {
+                    customLangSelect.value = 'ur';
+                    document.body.classList.add('lang-ur');
+                }
+
+                customLangSelect.addEventListener('change', function(e) {
+                    const val = e.target.value; // 'en' or 'ur'
+                    
+                    // We change the google translate iframe select dropdown programmatically
+                    var frame = document.querySelector('.goog-te-combo');
+                    if(frame) {
+                        frame.value = val;
+                        // Dispatch event to trigger translation
+                        frame.dispatchEvent(new Event('change'));
+                        
+                        if (val === 'ur') {
+                            document.body.classList.add('lang-ur');
+                        } else {
+                            document.body.classList.remove('lang-ur');
+                        }
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     @stack('scripts')
 </body>
 </html>
