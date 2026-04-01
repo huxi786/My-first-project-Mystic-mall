@@ -216,6 +216,31 @@
                             </div>
                         </div>
 
+                        <div class="lux-input-group mt-4 pt-3 border-top">
+                            <label class="lux-label text-danger">Flash Deal Settings</label>
+                            
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" name="is_flash_deal" id="isFlashDeal" {{ $product->is_flash_deal ? 'checked' : '' }}>
+                                <label class="form-check-label small text-muted" for="isFlashDeal">Activate Flash Sale</label>
+                            </div>
+
+                            <div id="flashSaleFields" style="display: {{ $product->is_flash_deal ? 'block' : 'none' }};">
+                                <div class="mb-3">
+                                    <label class="small fw-bold text-muted mb-1">Discounted Price (Rs.)</label>
+                                    <input type="number" name="discount_price" class="form-control lux-input @error('discount_price') is-invalid @enderror" 
+                                           placeholder="e.g. 3999" value="{{ old('discount_price', $product->discount_price) }}">
+                                    @error('discount_price') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="small fw-bold text-muted mb-1">Sale End Date & Time</label>
+                                    <input type="datetime-local" name="flash_deal_end" class="form-control lux-input @error('flash_deal_end') is-invalid @enderror" 
+                                           value="{{ old('flash_deal_end', $product->flash_deal_end ? \Carbon\Carbon::parse($product->flash_deal_end)->format('Y-m-d\TH:i') : '') }}">
+                                    @error('flash_deal_end') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="lux-input-group">
                             <label class="lux-label">Initial Inventory (Stock)</label>
                             <input type="number" name="stock" class="form-control lux-input" value="{{ $product->stock }}">
@@ -243,5 +268,11 @@
             document.getElementById('imagePreviewImg').src = URL.createObjectURL(file);
         }
     }
+
+    // Toggle Flash Sale Fields
+    document.getElementById('isFlashDeal').addEventListener('change', function() {
+        const fields = document.getElementById('flashSaleFields');
+        fields.style.display = this.checked ? 'block' : 'none';
+    });
 </script>
 @endsection

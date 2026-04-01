@@ -61,6 +61,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+
+    // Flash Sales Management
+    Route::controller(App\Http\Controllers\AdminFlashSaleController::class)->prefix('flash-sales')->name('admin.flash-sales.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
 });
 
 // User Order Tracking
@@ -92,3 +98,10 @@ Route::view('/services/payment', 'services.payment')->name('services.payment');
 Route::view('/services/shipping', 'services.shipping')->name('services.shipping');
 
 Route::get('/product/quick-view/{id}', [App\Http\Controllers\ProductController::class, 'quickView'])->name('product.quickView');
+
+// Search AJAX Routes
+Route::controller(App\Http\Controllers\ProductController::class)->prefix('search')->name('search.')->group(function () {
+    Route::get('/autocomplete', 'autocomplete')->name('autocomplete');
+    Route::get('/history', 'getSearchHistory')->name('history');
+    Route::post('/save', 'saveSearchTerm')->name('save');
+});

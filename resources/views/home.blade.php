@@ -103,6 +103,9 @@
         </div>
     @endif
 
+    <!-- Flash Sales Section -->
+    <x-flash-sales :products="$flashSaleProducts" />
+
     <!-- Products Section with Watermarks -->
     <div class="category-watermark-container">
         @if($config)

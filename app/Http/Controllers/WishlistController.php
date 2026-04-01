@@ -2,44 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Wishlist;
+use App\Http\Requests\WishlistToggleRequest;
+use App\Services\WishlistService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
+    protected $wishlistService;
+
+    public function __construct(WishlistService $wishlistService)
+    {
+        $this->wishlistService = $wishlistService;
+    }
+
+    /**
+     * Display a listing of personal wishlist items.
+     */
     public function index()
     {
-        $wishlists = Auth::user()->wishlists()->with('product')->latest()->get();
+        $wishlists = $this->wishlistService->getUserWishlist();
         return view('wishlist.index', compact('wishlists'));
     }
 
-    public function toggle(Request $request)
+    /**
+     * Toggle a product in/out of the user's wishlist.
+     */
+    public function toggle(WishlistToggleRequest $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
-
-        $exists = Wishlist::where('user_id', Auth::id())
-            ->where('product_id', $request->product_id)
-            ->first();
-
-        if ($exists) {
-            $exists->delete();
-            return response()->json(['status' => 'removed', 'message' => 'Removed from Wishlist']);
-        } else {
-            Wishlist::create([
-                'user_id' => Auth::id(),
-                'product_id' => $request->product_id
-            ]);
-            return response()->json(['status' => 'added', 'message' => 'Added to Wishlist']);
-        }
+        $result = $this->wishlistService->toggle($request->product_id);
+        return response()->json($result);
     }
 
+    /**
+     * Remove a product from the wishlist.
+     */
     public function destroy($id)
     {
-        $wishlist = Wishlist::where('user_id', Auth::id())->where('id', $id)->firstOrFail();
-        $wishlist->delete();
+        $this->wishlistService->remove($id);
         return redirect()->back()->with('success', 'Product removed from wishlist.');
     }
 }

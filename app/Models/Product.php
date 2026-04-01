@@ -16,6 +16,14 @@ class Product extends Model
         'stock',
         'category',
         'image',
+        'is_flash_deal',
+        'discount_price',
+        'flash_deal_end',
+    ];
+
+    protected $casts = [
+        'flash_deal_end' => 'datetime',
+        'is_flash_deal' => 'boolean',
     ];
 
     public function reviews()
@@ -23,7 +31,7 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function productImages()
+    public function images()
     {
         return $this->hasMany(ProductImage::class);
     }

@@ -33,6 +33,9 @@
                                                             @endif
                                                         </div>
                                                         <span class="fw-bold">{{ $details['name'] }}</span>
+                                                        @if(isset($details['is_flash']) && $details['is_flash'])
+                                                            <span class="badge bg-danger ms-2" style="font-size: 0.65rem;">FLASH DEAL</span>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td>Rs. {{ number_format($details['price']) }}</td>

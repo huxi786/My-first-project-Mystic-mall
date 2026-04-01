@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Services\ReviewService;
 use Illuminate\Http\Request;
-use App\Models\Review;
 
 class AdminReviewController extends Controller
 {
+    protected $reviewService;
+
+    public function __construct(ReviewService $reviewService)
+    {
+        $this->reviewService = $reviewService;
+    }
+
+    /**
+     * Display a listing of all reviews.
+     */
     public function index()
     {
-        $reviews = Review::with(['user', 'product'])->latest()->paginate(10);
+        $reviews = $this->reviewService->getAllReviews();
         return view('admin.reviews.index', compact('reviews'));
     }
 
+    /**
+     * Remove the specified review from storage.
+     */
     public function destroy($id)
     {
-        $review = Review::findOrFail($id);
-        $review->delete();
-        return redirect()->route('admin.reviews.index')->with('success', 'Review deleted successfully');
+        if ($this->reviewService->deleteReview($id)) {
+            return redirect()->route('admin.reviews.index')->with('success', 'Review deleted successfully.');
+        }
+
+        return redirect()->route('admin.reviews.index')->with('error', 'Review not found.');
     }
 }

@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function showLogin()
     {
         return view('auth.login');
@@ -21,51 +28,16 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:8'],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        // Auth::login($user); // Disable auto-login
+        $this->authService->register($request->validated());
 
         return redirect()->route('login')->with('success', 'Registration successful! Please login to continue.');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            // Log Activity
-            \App\Models\LoginActivity::create([
-                'user_id' => Auth::id(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-            ]);
-
-            $loginCount = \App\Models\LoginActivity::where('user_id', Auth::id())->count();
-            
-            if ($loginCount == 1) {
-                $request->session()->flash('welcome_type', 'first');
-            } else {
-                $request->session()->flash('welcome_type', 'returning');
-            }
-            $request->session()->flash('welcome_name', Auth::user()->name);
-
+        if ($this->authService->attemptLogin($request->validated(), $request)) {
             if (Auth::user()->is_admin) {
                 return redirect()->route('admin.dashboard');
             }
@@ -80,21 +52,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Log Logout time
-        if (Auth::check()) {
-            $activity = \App\Models\LoginActivity::where('user_id', Auth::id())
-                        ->whereNull('logout_at')
-                        ->latest('login_at')
-                        ->first();
-            
-            if ($activity) {
-                $activity->update(['logout_at' => now()]);
-            }
-        }
+        $this->authService->logout($request);
 
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
         return redirect('/');
     }
 }

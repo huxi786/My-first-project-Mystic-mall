@@ -171,6 +171,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.flash-sales.index') }}" class="{{ request()->routeIs('admin.flash-sales*') ? 'active' : '' }}">
+                    <i class="fas fa-bolt"></i> Flash Deals
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.orders.index') }}" class="{{ request()->routeIs('admin.orders*') ? 'active' : '' }}">
                     <i class="fas fa-shopping-bag"></i> Orders
                 </a>

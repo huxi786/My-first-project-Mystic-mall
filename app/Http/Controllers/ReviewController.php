@@ -3,38 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Review;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ReviewRequest;
+use App\Services\ReviewService;
 
 class ReviewController extends Controller
 {
+    protected $reviewService;
+
+    public function __construct(ReviewService $reviewService)
+    {
+        $this->reviewService = $reviewService;
+    }
+
     /**
      * Store a newly created review in storage.
      */
-    public function store(Request $request, Product $product)
+    public function store(ReviewRequest $request, Product $product)
     {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:1000',
-        ]);
+        $result = $this->reviewService->storeReview($product, $request->validated());
 
-        // Check if user already reviewed
-        $existingReview = Review::where('user_id', Auth::id())
-                                ->where('product_id', $product->id)
-                                ->first();
-
-        if ($existingReview) {
-            return back()->with('error', 'You have already reviewed this product.');
+        if ($result['status'] == 'error') {
+            return back()->with('error', $result['message']);
         }
 
-        Review::create([
-            'user_id' => Auth::id(),
-            'product_id' => $product->id,
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]);
-
-        return back()->with('success', 'Your review has been submitted successfully.');
+        return back()->with('success', $result['message']);
     }
 }

@@ -2,13 +2,13 @@
 
 #heroCarousel {
     position: relative;
-    height: 90vh; /* Adjust height for premium feel */
+    height: 75vh; /* Reduced from 90vh */
     overflow: hidden;
 }
 
 /* Ken Burns Effect */
 .carousel-item img.hero-img {
-    height: 90vh;
+    height: 75vh; /* Reduced from 90vh */
     width: 100%;
     object-fit: cover;
     transform: scale(1.0);
@@ -250,7 +250,7 @@
     position: absolute;
     top: 10%;
     right: -5%;
-    width: 40%;
+    width: 25%; /* Reduced from 40% */
     opacity: 0.05;
     pointer-events: none;
     z-index: -1;
@@ -262,7 +262,7 @@
     position: absolute;
     bottom: 20%;
     left: -5%;
-    width: 35%;
+    width: 20%; /* Reduced from 35% */
     opacity: 0.04;
     pointer-events: none;
     z-index: -1;

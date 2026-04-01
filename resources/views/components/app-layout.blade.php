@@ -41,6 +41,84 @@
         #google_translate_element {
             display: none;
         }
+        /* Search Suggestions Styles */
+        .search-suggestions-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(46, 2, 73, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            max-height: 450px;
+            overflow-y: auto;
+            z-index: 10001;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .suggestion-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            transition: all 0.2s;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .suggestion-item:last-child { border-bottom: none; }
+
+        .suggestion-item:hover {
+            background: rgba(255, 200, 0, 0.1);
+        }
+
+        .suggestion-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .suggestion-info h6 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .suggestion-info span {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        .history-header {
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .history-item {
+            padding: 10px 20px;
+            color: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .history-item:hover {
+            color: var(--accent-color);
+            background: rgba(255,255,255,0.03);
+        }
     </style>
     
     <!-- User Dark Mode Init -->
@@ -67,10 +145,13 @@
     <!-- Top Slide Search Strip -->
     <div id="searchOverlay" class="search-overlay">
         <div class="search-container">
-            <form action="{{ route('products.index') }}" method="GET" class="w-100 d-flex align-items-center">
-                <i class="fas fa-search text-accent fs-4 me-3"></i>
-                <input type="text" name="search" class="form-control bg-transparent border-0 text-white shadow-none fs-4" placeholder="Search products..." autofocus style="height: 60px;">
-            </form>
+            <div class="position-relative w-100">
+                <form action="{{ route('products.index') }}" method="GET" class="w-100 d-flex align-items-center" id="searchForm">
+                    <i class="fas fa-search text-accent fs-4 me-3"></i>
+                    <input type="text" id="searchInput" name="search" class="form-control bg-transparent border-0 text-white shadow-none fs-4" placeholder="Search products..." autocomplete="off" autofocus style="height: 60px;">
+                </form>
+                <div id="searchSuggestions" class="search-suggestions-dropdown"></div>
+            </div>
             <button class="close-search-btn" onclick="closeSearchOverlay()"><i class="fas fa-times"></i></button>
         </div>
     </div>
@@ -924,6 +1005,162 @@
                 });
             }, 1000);
         });
+    </script>
+    <script>
+        // --- Intelligent Search Logic ---
+        (function() {
+            const searchOverlay = document.getElementById('searchOverlay');
+            const searchInput = document.getElementById('searchInput');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            const searchForm = document.getElementById('searchForm');
+            let searchTimeout = null;
+
+            window.openSearchOverlay = function() {
+                searchOverlay.classList.add('active');
+                setTimeout(() => searchInput.focus(), 300);
+                showHistory(); // Show history when opened
+            }
+
+            window.closeSearchOverlay = function() {
+                searchOverlay.classList.remove('active');
+                searchSuggestions.style.display = 'none';
+            }
+
+            // Listen for input with debouncing
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                clearTimeout(searchTimeout);
+                if (query.length < 2) {
+                    showHistory();
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => {
+                    fetchSuggestions(query);
+                }, 300);
+            });
+
+            // Show history when focusing empty input
+            searchInput.addEventListener('focus', function() {
+                if (this.value.trim().length < 2) {
+                    showHistory();
+                }
+            });
+
+            // Fetch Suggetions from API
+            async function fetchSuggestions(query) {
+                try {
+                    const response = await fetch(`/search/autocomplete?q=${encodeURIComponent(query)}`);
+                    const products = await response.json();
+                    renderSuggestions(products);
+                } catch (error) {
+                    console.error('Search error:', error);
+                }
+            }
+
+            // Render Suggetions
+            function renderSuggestions(products) {
+                if (products.length === 0) {
+                    searchSuggestions.innerHTML = '<div class="p-4 text-center text-muted">No products found.</div>';
+                    searchSuggestions.style.display = 'block';
+                    return;
+                }
+
+                let html = '<div class="history-header">Product Suggestions</div>';
+                products.forEach(product => {
+                    const imgPath = product.image.startsWith('http') ? product.image : `/uploads/${product.image}`;
+                    html += `
+                        <div class="suggestion-item" onclick="handleSuggestionClick('${product.id}', '${product.name}')">
+                            <img src="${imgPath}" class="suggestion-img" onerror="this.src='https://placehold.co/50x50?text=Product'">
+                            <div class="suggestion-info">
+                                <h6>${product.name}</h6>
+                                <span>${product.category} • Rs. ${new Intl.NumberFormat().format(product.price)}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                searchSuggestions.innerHTML = html;
+                searchSuggestions.style.display = 'block';
+            }
+
+            // Handle Click & Save History
+            window.handleSuggestionClick = function(id, name) {
+                saveSearchQuery(name);
+                window.location.href = `/product/details/${id}`;
+            }
+
+            // Save Query to DB & LocalStorage
+            async function saveSearchQuery(query) {
+                // Save to LocalStorage for guest
+                let localHistory = JSON.parse(localStorage.getItem('search_history') || '[]');
+                localHistory = [query, ...localHistory.filter(q => q !== query)].slice(0, 5);
+                localStorage.setItem('search_history', JSON.stringify(localHistory));
+
+                // Save to DB via AJAX
+                try {
+                    fetch('/search/save', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({ q: query })
+                    });
+                } catch (e) {}
+            }
+
+            // Show History (DB + Local)
+            async function showHistory() {
+                const localHistory = JSON.parse(localStorage.getItem('search_history') || '[]');
+                
+                try {
+                    const response = await fetch('/search/history');
+                    const dbHistory = await response.json();
+                    
+                    // Combine and unique
+                    const combined = [...new Set([...dbHistory, ...localHistory])].slice(0, 6);
+                    
+                    if (combined.length === 0) {
+                        searchSuggestions.style.display = 'none';
+                        return;
+                    }
+
+                    let html = '<div class="history-header">Recent Searches</div>';
+                    combined.forEach(q => {
+                        html += `
+                            <div class="history-item" onclick="fillSearch('${q}')">
+                                <i class="fas fa-history text-muted small"></i>
+                                <span>${q}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    searchSuggestions.innerHTML = html;
+                    searchSuggestions.style.display = 'block';
+                } catch (e) {
+                    searchSuggestions.style.display = 'none';
+                }
+            }
+
+            window.fillSearch = function(query) {
+                searchInput.value = query;
+                fetchSuggestions(query);
+                searchInput.focus();
+            }
+
+            // Save when form submitted
+            searchForm.addEventListener('submit', function(e) {
+                saveSearchQuery(searchInput.value.trim());
+            });
+
+            // Hide suggestions on outside click
+            document.addEventListener('mousedown', function(e) {
+                if (!searchOverlay.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+        })();
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
