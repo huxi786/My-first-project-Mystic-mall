@@ -23,9 +23,10 @@
             </a>
         </div>
 
-        <div class="row gx-2 gy-3 d-flex align-items-stretch">
+        <div class="row gx-3 gy-3 d-flex align-items-stretch scroll-x-mobile-container">
+            <div class="row gx-2 gy-3 d-flex align-items-stretch scroll-x-mobile">
             @foreach($products as $product)
-                <div class="col-4 col-md-3 col-lg-3 d-flex">
+                <div class="col-lg-3 d-flex">
                     <div class="product-card-lux flash-deal-card flex-fill d-flex flex-column">
                         <div class="badge-flash-wrapper">
                             <div class="badge-flash">-{{ round((($product->price - $product->discount_price) / $product->price) * 100) }}% OFF</div>
@@ -68,6 +69,7 @@
                     </div>
                 </div>
             @endforeach
+            </div>
         </div>
     </div>
 </div>

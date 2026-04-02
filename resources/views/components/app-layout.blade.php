@@ -8,7 +8,6 @@
     <title>{{ config('app.name', 'Mystic Mall') }}</title>
     <link rel="icon" href="{{ asset('images/logo-icon.png') }}" type="image/x-icon">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -119,30 +118,319 @@
             color: var(--accent-color);
             background: rgba(255,255,255,0.03);
         }
+
+        /* Side Cart Drawer Styles */
+        #cartDrawerOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 100002;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #cartDrawer {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: #fff;
+            z-index: 100003;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: right 0.4s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #cartDrawer.active {
+            right: 0;
+        }
+
+        #cartDrawerOverlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .bg-mystic-dark { background-color: #2e0249; }
+        .text-accent { color: #ffc800; }
+        .btn-mystic { background: linear-gradient(135deg, #2e0249, #570a80); color: #ffc800; border: none; }
+        .btn-mystic:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(46, 2, 73, 0.3); }
+        .btn-outline-mystic { border: 2px solid #2e0249; color: #2e0249; font-weight: 600; transition: all 0.3s; }
+        .btn-outline-mystic:hover { background: #2e0249; color: #ffc800; }
+
+        .cart-drawer-item {
+            transition: transform 0.2s;
+        }
+        .cart-drawer-item:hover {
+            transform: translateX(-5px);
+        }
+        .cart-item-img-wrapper img {
+            transition: transform 0.3s;
+        }
+        .cart-drawer-item:hover .cart-item-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 450px) {
+            #cartDrawer {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Bottom Navigation Bar (Mobile Only) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65px;
+            background: rgba(46, 2, 73, 0.95);
+            backdrop-filter: blur(15px);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100001;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 8px 0;
+            flex: 1;
+        }
+
+        .bottom-nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .bottom-nav-item.active i {
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
+        }
+
+        .bottom-nav-item:active {
+            transform: scale(0.9);
+        }
+
+        @media (max-width: 991px) {
+            .bottom-nav { display: flex; }
+            body { padding-bottom: 75px; }
+
+            /* Ultimate App-style Side Drawer - FIXED GLASSMORPHISM */
+            .navbar .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
+                /* Darker base for perfect readability in mobile view */
+                background: rgba(28, 2, 45, 0.95); 
+                backdrop-filter: blur(20px) saturate(150%);
+                -webkit-backdrop-filter: blur(20px) saturate(150%);
+                z-index: 100005;
+                display: block !important;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 0 !important;
+                box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                visibility: hidden;
+            }
+
+            .navbar .navbar-collapse.show {
+                right: 0;
+                visibility: visible;
+            }
+
+            .navbar-nav {
+                padding: 20px;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 16px 20px !important;
+                border-radius: 12px;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.08);
+                margin-bottom: 10px !important;
+                color: #fff !important;
+                font-weight: 600;
+                display: flex !important;
+                align-items: center;
+                gap: 15px;
+            }
+            .nav-link i {
+                width: 30px;
+                color: var(--accent-color);
+                font-size: 1.2rem;
+            }
+            
+            /* Professional Bottom Nav */
+            .bottom-nav {
+                height: 70px;
+                background: rgba(18, 5, 29, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 215, 0, 0.15);
+            }
+            .bottom-nav-item {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                font-size: 0.65rem;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+            .bottom-nav-item i {
+                font-size: 1.2rem;
+            }
+            .bottom-nav-item.active {
+                color: var(--accent-color);
+            }
+            
+            /* Drawer Content Spacing */
+            .nav-item {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+
+            /* Backdrop Overlay */
+            .drawer-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.6);
+                backdrop-filter: blur(4px);
+                z-index: 100001;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+            .drawer-backdrop.active {
+                display: block;
+                opacity: 1;
+            }
+
+            /* Drawer Header Branding */
+            .drawer-header {
+                padding: 20px;
+                background: rgba(255, 215, 0, 0.05);
+                border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 70px;
+            }
+        }
+
+        /* 3-Dot Menu Animation */
+        .navbar-toggler[aria-expanded="true"] i {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
+        .navbar-toggler i {
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile Optimization Fixes */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem !important; } /* Reduced for small screens */
+            .hero-subtitle { font-size: 0.9rem !important; }
+            .hero-desc { font-size: 0.9rem !important; margin-bottom: 1.5rem !important; }
+            .section-title { font-size: 1.8rem; }
+            .card-custom { border-radius: 15px; }
+            .carousel-caption { padding: 0 20px !important; }
+        }
+        
+        /* Specific Fix for Accessories Slide */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 1.7rem !important; }
+        }
     </style>
     
-    <!-- User Dark Mode Init -->
     <script>
         if (localStorage.getItem('user_theme') === 'dark') {
             document.documentElement.classList.add('dark-mode');
         }
     </script>
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/categories.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom_carousel.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="font-sans antialiased">
     
-    
-    <!-- Top Slide Search Strip -->
+    <div id="cartDrawerOverlay" onclick="closeCartDrawer()"></div>
+    <div id="cartDrawer">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="{{ url('/') }}" class="bottom-nav-item {{ request()->is('/') ? 'active' : '' }}">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="event.preventDefault(); openSearchOverlay();">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="event.preventDefault(); document.querySelector('.navbar-toggler').click();">
+            <i class="fas fa-th-large"></i>
+            <span>Menu</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="event.preventDefault(); openCartDrawer();">
+            <i class="fas fa-shopping-cart position-relative">
+                <span class="cart-badge badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle" style="font-size: 0.5rem; {{ count((array)session('cart')) > 0 ? '' : 'display:none' }}">
+                    {{ count((array)session('cart')) }}
+                </span>
+            </i>
+            <span>Cart</span>
+        </a>
+        @auth
+            <a href="{{ route('profile.edit') }}" class="bottom-nav-item {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="bottom-nav-item">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+            </a>
+        @endauth
+    </nav>
+
     <div id="searchOverlay" class="search-overlay">
         <div class="search-container">
             <div class="position-relative w-100">
@@ -156,25 +444,43 @@
         </div>
     </div>
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top {{ (!request()->routeIs('home') && !request()->routeIs('products.index') && !request()->routeIs('contact') && !request()->routeIs('about')) ? 'scrolled static-nav' : '' }}">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo-icon.png') }}" alt="Mystic Mall Logo" style="height: 45px; width: auto; margin-right: 12px; filter: drop-shadow(0 2px 5px rgba(46, 2, 73, 0.4));">
                 <span class="ms-1 fw-bold">Mystic</span> <span class="fw-light ms-1">Mall</span>
             </a>
-            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                <i class="fas fa-bars"></i>
-            </button>
+            
+            <div class="d-flex align-items-center d-lg-none gap-3">
+                <a href="#" class="text-white text-decoration-none" onclick="event.preventDefault(); openSearchOverlay();">
+                    <i class="fas fa-search fs-4"></i>
+                </a>
+                <button class="navbar-toggler border-0 text-white shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" style="font-size: 1.5rem;">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
 
+            <div class="drawer-backdrop" id="drawerBackdrop" onclick="closeMobileDrawer()"></div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="drawer-header d-lg-none">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/logo-icon.png') }}" alt="Logo" style="height: 30px; margin-right: 10px;">
+                        <span class="text-white fw-bold fs-5 font-cinzel">Mystic Mall</span>
+                    </div>
+                    <button class="btn btn-link text-white p-0 border-0 fs-4" onclick="closeMobileDrawer()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} d-none d-lg-flex" href="{{ url('/') }}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ request()->has('category') && request()->query('category') != 'Accessories' ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Categories
+                            <i class="fas fa-th-large"></i> Categories
                         </a>
                         <ul class="dropdown-menu animate__animated animate__fadeInUp">
                             <li><a class="dropdown-item" href="{{ url('/products') }}"><i class="fas fa-th-large me-2"></i> All Products</a></li>
@@ -186,39 +492,34 @@
                             <li><a class="dropdown-item {{ request()->query('category') == 'Kid\'s Collection' ? 'text-warning' : '' }}" href="{{ url('/products?category=Kid\'s Collection') }}"><i class="fas fa-child me-2"></i> Kid's Collection</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link {{ request()->query('new_arrival') ? 'active' : '' }}" href="{{ url('/products?new_arrival=true') }}">New Arrivals</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->query('category') == 'Accessories' ? 'active' : '' }}" href="{{ url('/products?category=Accessories') }}">Accessories</a></li>
                     
-                    
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ url('/about') }}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ url('/contact') }}">Contact</a>
-                    </li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="{{ route('wishlist.index') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="{{ url('/about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li class="nav-item d-lg-none"><a class="nav-link" href="{{ url('/contact') }}"><i class="fas fa-envelope"></i> Contact Support</a></li>
 
-                    <!-- Search Bar -->
-                    <!-- Search Icon Trigger -->
-                    <li class="nav-item ms-2">
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link {{ request()->query('new_arrival') ? 'active' : '' }}" href="{{ url('/products?new_arrival=true') }}"><i class="fas fa-bolt"></i> New Arrivals</a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link {{ request()->query('category') == 'Accessories' ? 'active' : '' }}" href="{{ url('/products?category=Accessories') }}"><i class="fas fa-gem"></i> Accessories</a></li>
+
+                    <li class="nav-item ms-2 d-none d-lg-block">
                         <button class="btn btn-outline-mystic border-white text-white d-flex align-items-center" onclick="openSearchOverlay()" style="padding: 0.4rem 0.8rem;">
                             <i class="fas fa-search"></i>
                         </button>
                     </li>
 
+                    <li class="nav-item ms-2 d-none d-lg-block">
+                        <a class="btn btn-outline-mystic position-relative border-white text-white d-flex align-items-center" 
+                           href="{{ url('/cart') }}" 
+                           onclick="event.preventDefault(); openCartDrawer();"
+                           style="padding: 0.4rem 1rem;">
+                            <i class="fas fa-shopping-cart me-2"></i> Cart
+                            @php $cartCount = count((array) session('cart')); @endphp
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge {{ $cartCount > 0 ? '' : 'd-none' }}">
+                                {{ $cartCount }}
+                            </span>
+                        </a>
+                    </li>
 
                     @auth
-                        <li class="nav-item ms-2">
-                            <a class="btn btn-outline-mystic position-relative border-white text-white d-flex align-items-center" href="{{ url('/cart') }}" style="padding: 0.4rem 1rem;">
-                                <i class="fas fa-shopping-cart me-2"></i> Cart
-                                @php $cartCount = count((array) session('cart')); @endphp
-                                @if($cartCount > 0)
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ $cartCount }}
-                                    </span>
-                                @endif
-                            </a>
-                        </li>
-                    
                         <li class="nav-item dropdown ms-3">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                                 <div class="rounded-circle bg-white text-primary d-flex justify-content-center align-items-center me-2" style="width: 35px; height: 35px;">
@@ -254,12 +555,10 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
     <main style="{{ (!request()->routeIs('home') && !request()->routeIs('products.index') && !request()->routeIs('contact') && !request()->routeIs('about')) ? 'margin-top: 100px;' : '' }}">
         {{ $slot }}
     </main>
 
-    <!-- User Preferences Modal -->
     <div class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
@@ -268,7 +567,6 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4 bg-light">
-                    <!-- Theme Toggle -->
                     <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded shadow-sm border">
                         <div>
                             <h6 class="mb-1 fw-bold text-dark"><i class="fas fa-adjust text-accent me-2"></i> Appearance</h6>
@@ -279,7 +577,6 @@
                         </div>
                     </div>
                     
-                    <!-- Currency Preferences -->
                     <div class="mb-4 p-3 bg-white rounded shadow-sm border">
                         <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-money-bill-wave text-success me-2"></i> Currency Options</h6>
                         <select class="form-select form-select-sm" aria-label="Currency select">
@@ -290,7 +587,6 @@
                         </select>
                     </div>
 
-                    <!-- Language Preferences -->
                     <div class="mb-4 p-3 bg-white rounded shadow-sm border">
                         <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-globe text-info me-2"></i> Language</h6>
                         <select id="langSelect" class="form-select form-select-sm" aria-label="Language select">
@@ -299,7 +595,6 @@
                         </select>
                     </div>
 
-                    <!-- Notification Preferences -->
                     <div class="p-3 bg-white rounded shadow-sm border">
                         <h6 class="mb-3 fw-bold text-dark"><i class="fas fa-bell text-danger me-2"></i> Notifications</h6>
                         <div class="form-check form-switch mb-2">
@@ -320,7 +615,6 @@
         </div>
     </div>
 
-    <!-- Category Showcase Section -->
     <section class="category-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
@@ -330,7 +624,6 @@
             </div>
 
             <div class="row g-4">
-                <!-- Formal Wears -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <a href="{{ url('/products?category=Formal Wears') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -343,7 +636,6 @@
                     </a>
                 </div>
 
-                <!-- Casual Wears -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <a href="{{ url('/products?category=Casual Wears') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -356,7 +648,6 @@
                     </a>
                 </div>
 
-                <!-- Mens Collection -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <a href="{{ url('/products?category=Men\'s Collection') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -369,7 +660,6 @@
                     </a>
                 </div>
 
-                <!-- Womens Collection -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <a href="{{ url('/products?category=Women\'s Collection') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -382,7 +672,6 @@
                     </a>
                 </div>
 
-                <!-- Kids Collection -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
                     <a href="{{ url('/products?category=Kid\'s Collection') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -395,7 +684,6 @@
                     </a>
                 </div>
 
-                <!-- Accessories -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                     <a href="{{ url('/products?category=Accessories') }}" class="text-decoration-none">
                         <div class="category-card">
@@ -411,7 +699,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <div id="footer">   
         <div class="footer-top">
             <div class="container">
@@ -472,30 +759,25 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Premium Quick View Modal -->
     <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content" style="background: rgba(46, 2, 73, 0.98); backdrop-filter: blur(15px); border: 1px solid var(--accent-color); color: #fff;">
                 <div class="modal-body p-0">
                     <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-index-10" data-bs-dismiss="modal" style="z-index: 10;"></button>
                     <div class="row g-0">
-                        <!-- Product Image -->
                         <div class="col-lg-6 bg-white d-flex align-items-center justify-content-center p-5 position-relative overflow-hidden">
                             <img id="qv-image" src="" alt="Product" class="img-fluid" style="max-height: 500px; transition: transform 0.5s ease;">
                         </div>
                         
-                        <!-- Product Details -->
                         <div class="col-lg-6 p-5">
                             <span class="badge badge-mystic mb-2" id="qv-category">Category</span>
                             <h2 class="display-6 fw-bold mb-2" id="qv-title">Product Title</h2>
                             
                             <div class="d-flex align-items-center mb-4">
                                 <div class="text-warning me-2" id="qv-stars">
-                                    <!-- Stars injected via JS -->
-                                </div>
+                                    </div>
                                 <small class="text-white-50" id="qv-review-count">(0 Reviews)</small>
                             </div>
 
@@ -525,18 +807,15 @@
 
                                 <div class="d-grid gap-2">
                                     <form id="qv-buy-form" action="{{ route('checkout.index') }}" method="GET"> 
-                                        <!-- Should ideally add to cart then redirect, or pass params. usage: add to cart via ajax then redirect -->
                                         <button type="button" onclick="buyNow()" class="btn btn-mystic btn-lg w-100 mb-2">Buy Now</button>
                                     </form>
                                     <button type="button" onclick="addToCartQV()" class="btn btn-outline-mystic btn-lg w-100">Add to Cart</button>
                                 </div>
                             </div>
                             
-                            <!-- Reviews Preview -->
                             <div class="mt-4">
                                 <h5 class="border-bottom border-secondary pb-2 mb-3">Latest Reviews</h5>
                                 <div id="qv-reviews" style="max-height: 150px; overflow-y: auto;">
-                                    <!-- Reviews injected via JS -->
                                     <p class="text-white-50 small">No reviews yet.</p>
                                 </div>
                             </div>
@@ -547,9 +826,6 @@
         </div>
     </div>
 
-    <!-- Full Screen Search Overlay 
-
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -919,7 +1195,6 @@
         });
     </script>
     
-    <!-- AOS Animation Library JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -931,7 +1206,6 @@
             });
         });
     </script>
-    <!-- Welcome Message Toast -->
     @if(session('welcome_type'))
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -961,7 +1235,6 @@
     </script>
     @endif
     
-    <!-- Google Translate Engine -->
     <div id="google_translate_element"></div>
     <script>
         function googleTranslateElementInit() {
@@ -1161,6 +1434,124 @@
                 }
             });
         })();
+
+        // --- Side Cart Drawer Logic ---
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartDrawerOverlay = document.getElementById('cartDrawerOverlay');
+
+        function openCartDrawer() {
+            cartDrawerOverlay.classList.add('active');
+            cartDrawer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+            fetchCartDrawer(); // Refresh content
+        }
+
+        function closeCartDrawer() {
+            cartDrawer.classList.remove('active');
+            cartDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+            setTimeout(() => {
+                if (!cartDrawer.classList.contains('active')) {
+                    cartDrawerOverlay.style.display = 'none';
+                }
+            }, 300);
+        }
+
+        async function fetchCartDrawer() {
+            try {
+                const response = await fetch('{{ route('cart.drawer') }}');
+                const html = await response.text();
+                cartDrawer.innerHTML = html;
+            } catch (error) {
+                console.error('Error fetching cart drawer:', error);
+            }
+        }
+
+        // Intercept all "Add to Cart" forms globally
+        document.addEventListener('submit', function(e) {
+            if (e.target.matches('form[action*="cart/add"]')) {
+                e.preventDefault();
+                const form = e.target;
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update Drawer Content
+                        cartDrawer.innerHTML = data.drawerHtml;
+                        // Open Drawer
+                        openCartDrawer();
+                        // Update Cart Icon Badge (if exists)
+                        updateCartCount(data.cartCount);
+                        // Show success toast
+                        if (window.showToast) window.showToast(data.message, 'success');
+                    }
+                })
+                .catch(error => console.error('Add to cart error:', error));
+            }
+        });
+
+        function updateCartCount(count) {
+            const badges = document.querySelectorAll('.cart-badge');
+            badges.forEach(badge => {
+                badge.innerText = count;
+                badge.classList.add('animate__animated', 'animate__heartBeat');
+                setTimeout(() => badge.classList.remove('animate__animated', 'animate__heartBeat'), 1000);
+            });
+        }
+
+        async function removeFromCartDrawer(id) {
+            try {
+                const response = await fetch('{{ route('cart.remove') }}', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ id: id })
+                });
+                
+                // Refresh drawer
+                fetchCartDrawer();
+                // We should also get updated count if possible, for now just refresh
+                // Let's call a minimal API if needed, but fetchCartDrawer is okay for now.
+            } catch (error) {
+                console.error('Remove from cart error:', error);
+            }
+        }
+
+        // --- Mobile Drawer Logic ---
+        function closeMobileDrawer() {
+            const menu = document.getElementById('navbarSupportedContent');
+            const backdrop = document.getElementById('drawerBackdrop');
+            if (menu.classList.contains('show')) {
+                const bsCollapse = bootstrap.Collapse.getInstance(menu);
+                if (bsCollapse) bsCollapse.hide();
+                else menu.classList.remove('show');
+            }
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Intercept Bootstrap collapse events to handle backdrop
+        document.getElementById('navbarSupportedContent').addEventListener('show.bs.collapse', function () {
+            document.getElementById('drawerBackdrop').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('navbarSupportedContent').addEventListener('hide.bs.collapse', function () {
+            document.getElementById('drawerBackdrop').classList.remove('active');
+            document.body.style.overflow = '';
+        });
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     

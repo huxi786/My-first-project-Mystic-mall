@@ -8,6 +8,7 @@ Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+Route::get('/cart/drawer', [CartController::class, 'getDrawerContents'])->name('cart.drawer');
 Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::delete('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 

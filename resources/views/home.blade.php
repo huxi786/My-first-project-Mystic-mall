@@ -127,7 +127,7 @@
             
             <div class="row g-4 product-grid-animated">
                 @forelse($products as $product)
-                <div class="col-lg-3 col-md-6 col-sm-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 4) * 150 }}">
+                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 4) * 150 }}">
                     <div class="card product-card">
                         <div class="badge badge-mystic position-absolute" style="top: 15px; left: 15px;">{{ $product->category }}</div>
                         <div class="product-image-container">

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\ProductImage;
+use App\Models\SearchHistory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 
@@ -48,7 +49,12 @@ class AdminService
                                      ->orderByDesc('total_qty')
                                      ->take(5)
                                      ->get(),
-            'productsByCategory' => Product::all()->groupBy('category')
+            'productsByCategory' => Product::all()->groupBy('category'),
+            'trendingSearches' => SearchHistory::select('query', DB::raw('SUM(hit_count) as total_hits'))
+                                             ->groupBy('query')
+                                             ->orderByDesc('total_hits')
+                                             ->take(10)
+                                             ->get()
         ];
     }
 

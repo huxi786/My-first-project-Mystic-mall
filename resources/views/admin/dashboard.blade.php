@@ -295,6 +295,47 @@
     </div>
 </div>
 
+<div class="row mb-5">
+    <!-- Trending Searches -->
+    <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="card card-custom h-100 shadow-sm border-0">
+            <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                <h5 class="fw-bold text-dark mb-0"><i class="fas fa-fire me-2 text-danger"></i>Trending Searches</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="list-group list-group-flush">
+                    @forelse($trendingSearches as $index => $search)
+                    <div class="list-group-item border-0 px-0 py-2 d-flex align-items-center">
+                        <span class="badge bg-light text-dark border me-3">{{ $index + 1 }}</span>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0 fw-bold small text-uppercase">{{ $search->query }}</h6>
+                            <small class="text-muted">{{ $search->total_hits }} searches</small>
+                        </div>
+                        @if($index < 3)
+                            <i class="fas fa-trending-up text-success ms-2"></i>
+                        @endif
+                    </div>
+                    @empty
+                    <div class="text-center py-4 text-muted small">No search data available.</div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Hits Chart -->
+    <div class="col-lg-8">
+        <div class="card card-custom h-100 shadow-sm border-0">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-dark mb-4"><i class="fas fa-search me-2 text-accent"></i>Search Popularity</h5>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="searchTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <div class="card card-custom bg-white p-4">
@@ -528,6 +569,35 @@
                     grid: { display: false },
                     ticks: { color: '#666' }
                 }
+            }
+        }
+    });
+    
+    // Search Trends (Horizontal Bar Chart)
+    const ctxSearch = document.getElementById('searchTrendChart').getContext('2d');
+    window.searchTrendChartInstance = new Chart(ctxSearch, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($trendingSearches->pluck('query')) !!},
+            datasets: [{
+                label: 'Search Count',
+                data: {!! json_encode($trendingSearches->pluck('total_hits')) !!},
+                backgroundColor: 'rgba(255, 200, 0, 0.7)', // Gold
+                borderColor: '#ffc800',
+                borderWidth: 1,
+                borderRadius: 5
+            }]
+        },
+        options: {
+            indexAxis: 'y', // Make it horizontal
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: { beginAtZero: true, grid: { display: false } },
+                y: { grid: { display: false } }
             }
         }
     });

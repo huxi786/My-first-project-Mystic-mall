@@ -74,6 +74,14 @@ a {
     color: var(--accent-color);
 }
 
+@media (max-width: 768px) {
+    .btn-outline-mystic {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.7rem !important;
+        border-width: 1px !important;
+    }
+}
+
 /* --- Navbar --- */
 .navbar {
     background-color: rgba(46, 2, 73, 0.95);
@@ -138,7 +146,7 @@ a {
         rgba(255, 215, 0, 0.05) 100%
     );
     color: #fff !important;
-    transform: padding-left 5px;
+    padding-left: 1.5rem !important;
 }
 
 .dropdown-item:hover i {
@@ -273,6 +281,13 @@ a {
     overflow: hidden;
 }
 
+@media (max-width: 768px) {
+    .product-image-container {
+        height: 160px !important;
+        padding: 0.8rem;
+    }
+}
+
 .product-image-container img {
     max-height: 100%;
     max-width: 100%;
@@ -349,6 +364,22 @@ a {
     font-size: 1.1rem;
     color: var(--text-dark);
     margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 0.8rem !important;
+    }
+    .card-title {
+        font-size: 0.85rem !important; /* Smaller title on mobile */
+        margin-bottom: 0.5rem !important;
+    }
+    .card-text {
+        display: none !important; /* Hide description on mobile for compact layout */
+    }
+    .product-price {
+        font-size: 0.9rem !important;
+    }
 }
 
 .product-price {
@@ -902,3 +933,58 @@ a {
     transform: translateY(-2px) scale(1.05);
     color: #000;
 }
+
+/* --- App-like Interactions (Mobile Only) --- */
+@media (max-width: 768px) {
+    /* Tap Animation */
+    .btn, .nav-link, .bottom-nav-item, .card {
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn:active, .nav-link:active, .bottom-nav-item:active, .card:active {
+        transform: scale(0.95);
+    }
+
+    /* Horizontal Scroll Container */
+    .scroll-x-mobile {
+        display: flex !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        white-space: nowrap !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 15px !important;
+        gap: 15px !important;
+    }
+
+    .scroll-x-mobile > div, .scroll-x-mobile > .col-lg-3 {
+        flex: 0 0 75% !important; /* Shows part of the next card */
+        scroll-snap-align: start !important;
+        white-space: normal !important;
+    }
+
+    /* Hide Scrollbar */
+    .scroll-x-mobile::-webkit-scrollbar {
+        display: none;
+    }
+    .scroll-x-mobile {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* Bento Grid Mobile Layout */
+    .bento-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
+    }
+}
+
+/* Glassmorphism Category Tags */
+.badge-app-style {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50px;
+    padding: 5px 15px;
+}
+

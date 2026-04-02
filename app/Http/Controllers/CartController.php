@@ -25,14 +25,24 @@ class CartController extends Controller
         $cart = $this->cartService->add($productId, $quantity);
 
         if ($request->ajax()) {
+            $drawerHtml = view('partials.cart-drawer')->render();
             return response()->json([
                 'success' => true,
                 'message' => 'Product added to cart!',
-                'cartCount' => count($cart)
+                'cartCount' => count($cart),
+                'drawerHtml' => $drawerHtml
             ]);
         }
 
         return redirect()->back()->with('success', 'Product added to cart!');
+    }
+
+    /**
+     * Get the cart drawer partial HTML.
+     */
+    public function getDrawerContents()
+    {
+        return view('partials.cart-drawer');
     }
 
     /**
