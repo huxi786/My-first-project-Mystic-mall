@@ -500,11 +500,7 @@
                     <li class="nav-item d-none d-lg-block"><a class="nav-link {{ request()->query('new_arrival') ? 'active' : '' }}" href="{{ url('/products?new_arrival=true') }}"><i class="fas fa-bolt"></i> New Arrivals</a></li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link {{ request()->query('category') == 'Accessories' ? 'active' : '' }}" href="{{ url('/products?category=Accessories') }}"><i class="fas fa-gem"></i> Accessories</a></li>
 
-                    <li class="nav-item ms-2 d-none d-lg-block">
-                        <button class="btn btn-outline-mystic border-white text-white d-flex align-items-center" onclick="openSearchOverlay()" style="padding: 0.4rem 0.8rem;">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </li>
+
 
                     <li class="nav-item ms-2 d-none d-lg-block">
                         <a class="btn btn-outline-mystic position-relative border-white text-white d-flex align-items-center" 
@@ -550,6 +546,12 @@
                             <a class="btn btn-mystic" href="{{ route('login') }}">Login</a>
                         </li>
                     @endauth
+
+                    <li class="nav-item ms-2 d-none d-lg-block">
+                        <button class="btn btn-outline-mystic border-white text-white d-flex align-items-center" onclick="openSearchOverlay()" style="padding: 0.4rem 0.8rem;">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>

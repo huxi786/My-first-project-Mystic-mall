@@ -20,7 +20,11 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit', ['user' => Auth::user()]);
+        $user = Auth::user();
+        $orders = $user->orders()->latest()->get();
+        $wishlistItems = $user->wishlists()->with('product')->latest()->get();
+        
+        return view('profile.edit', compact('user', 'orders', 'wishlistItems'));
     }
 
     /**
