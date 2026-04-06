@@ -56,29 +56,43 @@
                     <span class="text-muted">({{ number_format($avgRating, 1) }} / 5 from {{ $product->reviews->count() }} reviews)</span>
                 </div>
 
-                <!-- Price -->
-                <h2 class="fw-bold mb-4" style="color: var(--primary-color);">Rs. {{ number_format($product->price, 0) }}</h2>
-
                 <!-- Description -->
-                <div class="mb-4 text-muted" style="line-height: 1.8;">
+                <div class="mb-4 text-muted product-description" style="line-height: 1.8;">
                     {!! nl2br(e($product->description)) !!}
                 </div>
 
-                <!-- Actions -->
-                <div class="d-flex gap-3 mb-5">
-                    <form action="{{ route('cart.add') }}" method="POST" class="flex-grow-1">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="btn btn-mystic btn-lg w-100 shadow-sm" {{ $product->stock == 0 ? 'disabled' : '' }}>
-                            <i class="fas fa-shopping-cart me-2"></i> {{ $product->stock == 0 ? 'Out of Stock' : 'Add to Cart' }}
-                        </button>
-                    </form>
-                    
-                    @auth
-                        <button class="btn btn-outline-danger btn-lg px-4 shadow-sm" onclick="toggleWishlist(event, {{ $product->id }})">
-                            <i class="{{ auth()->user()->wishlists()->where('product_id', $product->id)->exists() ? 'fas' : 'far' }} fa-heart"></i>
-                        </button>
-                    @endauth
+                <!-- Spacer for mobile to prevent content from hiding behind the sticky bar -->
+                <div class="d-block d-md-none mb-5 pb-5"></div>
+
+                <!-- Luxury Action Bar (Sticky on Mobile) -->
+                <div class="luxury-action-bar mb-5">
+                    <div class="action-bar-content d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                        <div class="price-block">
+                            <span class="text-muted small d-block d-md-none mb-1">Total Price</span>
+                            <h2 class="fw-bold mb-0 luxury-price" style="color: var(--primary-color);">Rs. {{ number_format($product->price, 0) }}</h2>
+                        </div>
+                        
+                        <div class="actions-block d-flex gap-3 flex-grow-1 flex-md-grow-0">
+                            <form action="{{ route('cart.add') }}" method="POST" class="flex-grow-1" style="min-width: 200px;">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-luxury-cart w-100" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                                    <span class="btn-text">{{ $product->stock == 0 ? 'Out of Stock' : 'Add to Cart' }}</span>
+                                    <i class="fas fa-arrow-right btn-icon"></i>
+                                </button>
+                            </form>
+                            
+                            @auth
+                                <button class="btn btn-luxury-wishlist rounded-circle" onclick="toggleWishlist(event, {{ $product->id }})" title="Add to Wishlist">
+                                    <i class="{{ auth()->user()->wishlists()->where('product_id', $product->id)->exists() ? 'fas' : 'far' }} fa-heart"></i>
+                                </button>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-luxury-wishlist rounded-circle text-center" style="line-height: 50px;" title="Login to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            @endauth
+                        </div>
+                    </div>
                 </div>
 
                 <hr class="my-5">
