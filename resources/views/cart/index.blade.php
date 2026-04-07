@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="container py-5" style="margin-top: 50px;">
-        <h2 class="mb-4 fw-bold animate__animated animate__fadeInDown" style="color: var(--primary-color);">Shopping Cart</h2>
+        <h2 class="mb-4 fw-bold" style="color: var(--primary-color);">Shopping Cart</h2>
         
         @if(session('cart'))
-            <div class="row g-4 animate__animated animate__fadeInUp">
+            <div class="row g-4">
                 <!-- Cart Items List (Column 8) -->
                 <div class="col-lg-8">
                     <div class="card card-custom shadow-sm border-0">

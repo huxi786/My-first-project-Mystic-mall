@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="container py-5" style="margin-top: 50px;">
-        <h2 class="mb-5 fw-bold text-center animate__animated animate__fadeInDown" style="color: var(--primary-color);">Secure Checkout</h2>
+        <h2 class="mb-5 fw-bold text-center" style="color: var(--primary-color);">Secure Checkout</h2>
         
-        <div class="row g-4 justify-content-center animate__animated animate__fadeInUp">
+        <div class="row g-4 justify-content-center">
             <!-- Left Column: Billing Details & Payment -->
             <div class="col-lg-7">
                 <form action="{{ route('place.order') }}" method="POST" id="checkout-form">

@@ -1,4 +1,91 @@
 <x-app-layout>
+    <!-- === MOBILE APP EXACT REPLICA (Visible Only on Mobile) === -->
+    <div class="d-block d-md-none exact-mobile-app">
+        <!-- Minimal Top Nav Space -->
+        <div class="app-top-header">
+            <h1 class="font-cinzel text-center text-white m-0 py-3" style="font-size: 1.5rem; letter-spacing: 1px;">Mystic Mall</h1>
+        </div>
+
+        <!-- Immersive Hero -->
+        <div class="app-hero">
+            <div class="app-hero-img-container">
+                <img src="{{ asset('images/local/home_hero_women.png') }}" class="app-hero-img" alt="Hero">
+                <div class="app-hero-gradient"></div>
+            </div>
+            
+            <div class="app-hero-content">
+                <span class="app-badge">New Arrivals</span>
+                <h1 class="app-title font-cinzel">East Ract Luxury &<br>Mall-Resecnaris</h1>
+                <p class="app-desc">Quiet luxury fashion for the modern era.</p>
+                <a href="{{ url('/products') }}" class="btn-app-solid">Scan More</a>
+            </div>
+        </div>
+
+        <!-- Bento Category Grid -->
+        <div class="app-bento-container">
+            <div class="container-fluid">
+                <div class="row g-3">
+                <div class="col-6">
+                    <a href="{{ url('/products?category=Formal Wears') }}" class="text-decoration-none">
+                        <div class="app-bento-card glass-panel text-start">
+                            <h4 class="font-cinzel text-white mb-2">Premium<br>Fashion</h4>
+                            <p class="app-text-muted mb-0">Elegance refined.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="{{ url('/products?category=Women\'s Collection') }}" class="text-decoration-none">
+                        <div class="app-bento-card glass-panel bg-light-purple text-start">
+                            <h4 class="font-cinzel text-white mb-2">Women's<br>Luxury</h4>
+                            <p class="app-text-muted mb-0">Grace & Glamour</p>
+                        </div>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Products Grid -->
+        <div class="app-products-section mt-4">
+            <h2 class="app-section-title font-cinzel mb-4 px-3">Products</h2>
+            <div class="container-fluid">
+                <div class="row g-3 pb-5">
+                @foreach($products->take(6) as $product)
+                    <div class="col-6">
+                        <div class="app-product-wrapper glass-panel">
+                            <div class="app-btn-group">
+                                <span class="app-category-pill">{{ Str::limit($product->category, 10) }}</span>
+                                <button class="app-fav-btn" onclick="toggleWishlist(event, {{ $product->id }})">
+                                    <i class="{{ in_array($product->id, $wishlistProductIds ?? []) ? 'fas' : 'far' }} fa-heart"></i>
+                                </button>
+                            </div>
+                            
+                            <a href="{{ route('product.show', $product->id) }}" class="text-decoration-none">
+                                <div class="app-product-img-wrapper">
+                                    <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('uploads/' . $product->image) }}" onerror="this.src='{{ asset('images/hero (2).jpg') }}'" class="app-product-image">
+                                </div>
+                                <div class="app-product-details">
+                                    <h5 class="text-white text-truncate mb-1" style="font-size: 0.95rem; font-weight: 500;">{{ $product->name }}</h5>
+                                    <div class="d-flex align-items-center mb-1">
+                                         <p class="app-price mb-0">Rs. {{ number_format($product->price) }}</p>
+                                    </div>
+                                    <p class="app-text-muted text-truncate mb-0" style="font-size: 0.7rem;">{{ Str::limit($product->description, 20) }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            </div> <!-- Close container-fluid -->
+             <div class="text-center pb-5 mb-5 px-3">
+                 <a href="{{ url('/products') }}" class="btn-app-outline w-100">View All Products</a>
+             </div>
+        </div>
+    </div>
+    <!-- === END MOBILE APP EXACT REPLICA === -->
+
+    <!-- Desktop Original Layout (Hidden on Mobile) -->
+    <div class="d-none d-md-block">
     <!-- Hero Banner -->
     @php
         $categoryConfig = [
@@ -187,4 +274,5 @@
             </div>
         </div>
     </div>
+    </div> <!-- Close d-none d-md-block -->
 </x-app-layout>
